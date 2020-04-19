@@ -1,0 +1,48 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+     
+	<package name="myPack" extends="struts-default">
+	 <interceptors>
+	    <interceptor-stack name="defaultStack">
+           <interceptor-ref name="params">
+             <param name="excludeParams">6578706f7274*,d-1332992-e*</param>
+          </interceptor-ref>
+        </interceptor-stack>
+	  </interceptors>
+	  <default-action-ref name="CatchAll"/>
+	  
+	  <action name="CatchAll"> 
+	      <interceptor-ref name="defaultStack"></interceptor-ref>
+	  </action>
+	  
+      <action name="addOrUpdate" class="com.emp.controller.EmployeeAction"
+			method="addOrUpdateEmployee">
+			<result name="success" type="redirect">employeeDetails</result>
+			<result name="input">/EmployeeInfo.jsp</result>
+		</action>
+
+		<action name="updateEmployee" class="com.emp.controller.EmployeeAction"
+			method="updateEmployee">
+			<result name="success">/EmployeeInfo.jsp</result>
+			<result name="input">/EmployeeInfo.jsp</result>
+		</action>
+
+		<action name="deleteEmployee" class="com.emp.controller.EmployeeAction"
+			method="deleteEmployee">
+			<result name="success" type="redirect">/employeeDetails</result>
+			<result name="input">/EmployeeInfo.jsp</result>
+		</action>
+
+		<action name="employeeDetails" class="com.emp.controller.EmployeeAction"
+			method="employeeList">
+			<result name="success">/EmployeeInfo.jsp</result>
+		</action>
+
+	</package>
+</struts>
+
